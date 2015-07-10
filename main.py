@@ -1,4 +1,4 @@
-from flask import *
+from flask import Flask,render_template
 import urllib2
 from google.appengine.ext import db
 
@@ -41,6 +41,34 @@ def timetable_api(postcode=None, post=None, code=None):
 def page_not_found(e):
     """Return a custom 404 error."""
     return 'Sorry, nothing at this URL.', 404
+
+class SubPost(db.model):
+	name = db.StringProperty()
+	short = db.StringProperty()
+
+class Courses(db.model):
+	subPost = db.ReferenceProperty(SubPost, collection_name = "courses")
+	title = db.StringProperty()
+	courseNum = db.IntegerProperty()
+	length = db.StringProperty(choices = ('H','Y'))
+	campus = db.IntegerProperty(choices = (1,3,5))
+	informationUpdated = db.StringProperty()
+
+class Section(db.model):
+	course = db.ReferenceProperty(Courses, collection_name = "sections")
+	section = db.StringProperty(choices = ('F','S','Y'))
+
+class Meeting(db.model):
+	section = db.ReferenceProperty(Section, collection_name = "meetings")
+	code = db.StringProperty()
+	time = db.StringProperty()
+	location = db.StringProperty()
+	instructor = db.StringProperty()
+	enrolment_indicator = db.StringProperty(choices = ('P','R','PE','RP','E','AE','P*','PE*','RP*'))
+	enrolment_control = db.LinkProperty()
+	last_update = db.TimeProperty()
+
+
 
 
 
