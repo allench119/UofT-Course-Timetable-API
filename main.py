@@ -1,4 +1,8 @@
-from flask import Flask
+from flask import *
+import urllib2
+from google.appengine.ext import db
+
+
 app = Flask(__name__)
 app.config['DEBUG'] = True
 
@@ -7,12 +11,37 @@ app.config['DEBUG'] = True
 
 
 @app.route('/')
-def hello():
-    """Return a friendly HTTP greeting."""
-    return 'Hello World!'
+def index():
+    return redirect(url_for('timetable_api'))
 
+@app.route('/ttapi/')
+@app.route('/ttapi/<postcode>/')
+@app.route('/ttapi/<post>/courses')
+@app.route('/ttapi/<post>/<code>/')
+def timetable_api(postcode=None, post=None, code=None):
+	url = "http://www.artsandscience.utoronto.ca/ofr/timetable/winter/"
+
+	if postcode is None and post is None and code is None:
+		return render_template('ttapi_index.html', error=False);
+	else:
+		if postcode is not None and (post is None and code is None):
+			url = 
+			urllib2.urlopen("")
+			
+		if post is not None and (postcode is None and code is None):
+			return "this should be a page to show all courses of CSC"
+		if (post is not None and code is not None) and postcode is None:
+			return "this shoudd be a page for '/csc/343h1' like shits"
+
+
+	else:
+		return render_template('ttapi_index.html', error=True), 404
 
 @app.errorhandler(404)
 def page_not_found(e):
     """Return a custom 404 error."""
     return 'Sorry, nothing at this URL.', 404
+
+
+
+
