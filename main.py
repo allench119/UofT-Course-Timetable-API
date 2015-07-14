@@ -1,6 +1,7 @@
 from flask import Flask,render_template,redirect,url_for
 import urllib2
 from bs4 import BeautifulSoup
+import logging
 from google.appengine.ext import db
 
 
@@ -10,11 +11,9 @@ app.config['DEBUG'] = True
 # Note: We don't need to call run() since our application is embedded within
 # the App Engine WSGI application server.
 
-
-
 @app.route('/')
 def index():
-    return redirect(url_for('timetable_api'))
+    return redirect('/test')
 
 @app.route('/ttapi/')
 @app.route('/ttapi/<postcode>/')
@@ -42,12 +41,8 @@ def page_not_found(e):
 
 @app.route('/test')
 def test():
+	return str(coursefinderParser('CSC108H1F20159'))
 	
-	url = 'http://www.artsandscience.utoronto.ca/ofr/timetable/winter/csc.html'
-	response = urllib2.urlopen(url)
-	html = response.read()
-	soup = BeautifulSoup(html, 'html.parser')
-	return soup.title.string
 
 class SubPost(db.Model):
 	name = db.StringProperty()
@@ -94,8 +89,35 @@ def dbConstructor():
 		 ans += q.instructor
 	return ans
 
+def coursefinderParser(courseCode):
 
+	keywords = ["activity","time","instructor","location","classSize","currentEnrolment","waitlist"]
+	url = ("http://coursefinder.utoronto.ca/course-search/search/courseInquiry"
+			"?methodToCall=start"
+			"&viewId=CourseDetails-InquiryView"
+			"&courseId=") + courseCode
 
+	response = urllib2.urlopen(url)
+	html = response.read()
+	soup = BeautifulSoup(html, 'html.parser')
+	
+	table = soup.find(id="u172").tbody.find_all('tr')
+	meetings = {}
+	for tr in table:
+		meeting = {}
+		i = 0
+
+		for td in tr.find_all('td'):
+			if td.div.span != None:
+				meeting[keywords[i]] = td.div.span.get_text().strip('\n\r')
+			else:
+				meeting[keywords[i]] = None
+			i += 1
+			#logging.error(td.name)
+		meetings[meeting['activity']] = meeting
+	
+	return meetings
+	
 
 
 
