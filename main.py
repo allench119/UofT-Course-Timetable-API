@@ -2,6 +2,8 @@ from flask import Flask,render_template,redirect,url_for
 import urllib2
 from bs4 import BeautifulSoup
 import logging
+import json
+import re
 from google.appengine.ext import db
 
 
@@ -89,6 +91,31 @@ def dbConstructor():
 		 ans += q.instructor
 	return ans
 
+def POSTParser(POSTcode):
+	POSTLib = {}
+	courseList = getCourses(POSTcode)
+	for course in courseList:
+		logging.error(course + "started")
+		POSTLib[course] = coursefinderParser(course + ("20159" if course[-1] == 'F' else "20161"))
+		logging.error(course + "finished")
+	return json.dumps(POSTLib)
+
+def getCourses(POSTcode):
+	url = "http://www.artsandscience.utoronto.ca/ofr/timetable/winter/" + POSTcode.lower() + ".html"
+	response = urllib2.urlopen(url)
+	html = response.read()
+	soup = BeautifulSoup(html, 'html.parser')
+
+	table = soup.find_all('table')[0]
+	courseList = []
+	pattern = re.compile('^' + POSTcode.upper())
+
+	for atag in table.find_all('a'):
+		if pattern.match(atag.get_text()):
+		 	courseList.append(atag.get_text() + atag.find_parent('td').find_next_sibling('td').get_text())
+	return courseList
+
+
 def coursefinderParser(courseCode):
 
 	keywords = ["activity","time","instructor","location","classSize","currentEnrolment","waitlist"]
@@ -101,6 +128,9 @@ def coursefinderParser(courseCode):
 	html = response.read()
 	soup = BeautifulSoup(html, 'html.parser')
 	
+	if soup.find(id="u172") == None:
+		return None
+
 	table = soup.find(id="u172").tbody.find_all('tr')
 	meetings = {}
 	for tr in table:
@@ -109,13 +139,13 @@ def coursefinderParser(courseCode):
 
 		for td in tr.find_all('td'):
 			if td.div.span != None:
-				meeting[keywords[i]] = td.div.span.get_text().strip('\n\r')
+				meeting[keywords[i]] = td.div.span.get_text().strip('\r\n')
 			else:
 				meeting[keywords[i]] = None
 			i += 1
-			#logging.error(td.name)
+
 		meetings[meeting['activity']] = meeting
-	
+
 	return meetings
 	
 
