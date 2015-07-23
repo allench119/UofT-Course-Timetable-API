@@ -8,13 +8,15 @@ def POSTParser(POSTcode):
 
 	POSTLib = {}
 	courseList = getCourses(POSTcode)
+	if not courseList:
+		return None
 	for course in courseList:
 		logging.error(course + " started")
 		try:
-			POSTLib[course] = coursefinderParser(course + ("20159" if course[-1] == 'F' else "20161"))
+			POSTLib[course] = coursefinderParser(course + ("20161" if course[-1] == 'S' else "20159"))
 		except urllib2.HTTPError, err:
 			if err.code == 404:
-				POSTLib[course] = coursefinderParser(course + ("20159" if course[-1] == 'F' else "20161"))
+				POSTLib[course] = coursefinderParser(course + ("20161" if course[-1] == 'S' else "20159"))
 			else:
 				raise
 		logging.error(course + " finished")
@@ -39,6 +41,9 @@ def getAddress(POSTcode):
 def getCourses(POSTcode):
 
 	url = getAddress(POSTcode)
+	if not url:
+		return None
+
 	response = urllib2.urlopen(url)
 	html = response.read()
 	soup = BeautifulSoup(html, 'html.parser')
@@ -93,17 +98,9 @@ def coursefinderParser(courseCode):
 	courseData = {}
 	courseData["info"] = {}
 	courseData["meetings"] = {}
-	"""
-	info['title']
-	info['division']
-	info['courseDescription']
-	info['department']
-	info['exclusion']
-	info['courseLevel']
-	"""
 
-	if soup.find(id="u172") == None:
-		return courseData
+	if soup.find(id="u172") == None and courseData["info"] == {}:
+		return None
 
 	table = soup.find(id="u172").tbody.find_all('tr')
 	meetings = {}

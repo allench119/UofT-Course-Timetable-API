@@ -51,12 +51,6 @@ def subPostConstructor(postCode):
 							currentEnrol = int(meeting['currentEnrolment'])
 							)
 			newMeeting.put()
+
 	
 	return "suceed"
-	"""
-	response = db.GqlQuery("SELECT * FROM Meeting")
-	ans = ""
-	for q in response:
-		 ans += q.time[0]
-	return ans
-	"""
