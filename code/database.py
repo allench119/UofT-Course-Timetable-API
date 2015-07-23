@@ -1,6 +1,7 @@
 from google.appengine.ext import db
 from parsers import POSTParser,coursefinderParser
 import re
+
 class SubPost(db.Model):
 	name = db.StringProperty()
 	short = db.StringProperty()
@@ -17,12 +18,14 @@ class Course(db.Model):
 class Meeting(db.Model):
 	course = db.ReferenceProperty(Course, collection_name = "meetings")
 	code = db.StringProperty()
-	time = db.ListProperty()
-	location = db.ListProperty()
+	time = db.StringListProperty()
+	location = db.StringListProperty()
 	instructor = db.StringProperty()
+	classSize = db.IntegerProperty()
+	currentEnrol = db.IntegerProperty()
 
 def subPostConstructor(postCode):
-	subPostData = {"CSC108H1F": coursefinderParser("CSC108H1F20159")}#POSTParser(POSTcode)
+	subPostData = POSTParser(postCode)#{"CSC108H1F": coursefinderParser("CSC108H1F20159")}
 	newSubPost = SubPost(name = "computer science", short = postCode) #write a uitility function to find the full name 
 	newSubPost.put()
 
@@ -34,16 +37,21 @@ def subPostConstructor(postCode):
 					length = courseCode[2], 
 					campus = int(courseCode[3]), 
 					section = courseCode[4])
+
 		courseNow.put()
 
 		for meetingCode,meeting in courseData['meetings'].items():
 			newMeeting = Meeting(
 							course = courseNow,
 							code = meetingCode,
-							time = meeting['time'],
-							location = meeting['location'],
-							instructor = meeting['instructor'])
+							time = meeting['time'] if meeting['time'] is not None else [],
+							location = meeting['location'] if meeting['location'] is not None else [],
+							instructor = meeting['instructor'],
+							classSize = int(meeting['classSize']),
+							currentEnrol = int(meeting['currentEnrolment'])
+							)
 			newMeeting.put()
+	
 	return "suceed"
 	"""
 	response = db.GqlQuery("SELECT * FROM Meeting")

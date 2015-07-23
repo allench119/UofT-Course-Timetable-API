@@ -5,6 +5,7 @@ import json
 import re
 
 def POSTParser(POSTcode):
+
 	POSTLib = {}
 	courseList = getCourses(POSTcode)
 	for course in courseList:
@@ -20,8 +21,24 @@ def POSTParser(POSTcode):
 
 	return POSTLib
 
+def getAddress(POSTcode):
+
+	url = "http://www.artsandscience.utoronto.ca/ofr/timetable/winter/"
+	response = urllib2.urlopen(url)
+	html = response.read()
+	soup = BeautifulSoup(html, 'html.parser')
+
+	
+	courseTag = soup.find("a", string=re.compile(POSTcode.upper() + " courses"), href=True)
+
+	if courseTag:
+		return url + courseTag['href']
+	else:
+		return None
+	
 def getCourses(POSTcode):
-	url = "http://www.artsandscience.utoronto.ca/ofr/timetable/winter/" + POSTcode.lower() + ".html"
+
+	url = getAddress(POSTcode)
 	response = urllib2.urlopen(url)
 	html = response.read()
 	soup = BeautifulSoup(html, 'html.parser')
@@ -36,6 +53,7 @@ def getCourses(POSTcode):
 	return courseList
 
 def simplifyList(text):
+
 	textList = text.lstrip().rstrip().split(' ')
 	leastRepeated = len(textList)
 	for i in textList:
@@ -53,6 +71,7 @@ def simplifyList(text):
 	
 	
 def waitlistOption(td):
+
 	imgTags = td.find_all('img')
 	for img in imgTags:
 		if 'checkmark.png' in img['src']:

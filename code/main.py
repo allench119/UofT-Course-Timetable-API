@@ -14,9 +14,9 @@ def index():
     #return simplifyList("MB 121 MB 121 MB 121 MU 121")
 	#return str(re.findall("[A-Z][a-zA-Z]* [A-Z][a-zA-Z]+", "G Baumgartner "))
 	#return str(parsers.coursefinderParser("CSC108H1F20159"))
-	#return parsers.POSTParser('CSC')
-	return database.subPostConstructor('CSC')
-	#return "1"
+	#return str(parsers.POSTParser('MUS'))
+	#return database.subPostConstructor('CSC')
+	#return parsers.getAddress('csc')
 	#return str(re.split('([0-9]+)',"CSC108H1S"))
 
 
