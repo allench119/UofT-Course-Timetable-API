@@ -1,12 +1,9 @@
 # UofT-Course-Timetable-API
-<<<<<<< HEAD
 
-*** I'm still building it. By far, it only supports the courses that are provided by Art & Science Faculty at St.Geroge Campus.**
+
+*** I'm still building it. By far, it only supports the courses that are provided by Art & Science Faculty at St.Geroge Campus.***
 
 An API devoted to providing a perfect solution to developers who want to work with the Uoft timetable but hate to parse their ugly pages
-=======
-An API devoted to providing a perfect solution to developers who want to work with the Uoft timetable but hate to parse their ugly pages.
->>>>>>> origin/master
 It's built on Google App Engine and a part of my course scheduling app. Everyone is welcome to use the parsers.
 
 Usage:
