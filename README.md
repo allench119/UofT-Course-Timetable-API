@@ -1,4 +1,7 @@
 # UofT-Course-Timetable-API
+
+*** I'm still building it. By far, it only supports the courses that are provided by Art & Science Faculty at St.Geroge Campus.**
+
 An API devoted to providing a perfect solution to developers who want to work with the Uoft timetable but hate to parse their ugly pages
 It's built on Google App Engine and a part of my course scheduling app. Everyone is welcome to use the parsers.
 
@@ -32,6 +35,4 @@ Usage:
 
 The response is in JSON format. On error, an error message will be returned with the HTTP error code 404.
 *Please be informed that it's extreamly time-consuming to query all the courses a department provides. (It takes about 30 seconds to parse all CSC courses.)
-
-I'm still building it. By far, course information like prereqs and descriptions are not parsed. I will finish it as soon as possible.
 

@@ -99,6 +99,13 @@ def coursefinderParser(courseCode):
 	courseData["info"] = {}
 	courseData["meetings"] = {}
 
+	if soup.find(id="u18_boxLayout") is not None:
+		infoList = soup.find(id="u18_boxLayout").find_all("div", id=re.compile("^u(?!(167|332))[0-9]+"),recursive=False)
+
+		for tag in infoList:
+			logging.error("examing tag" + " " + tag["id"])
+			courseData["info"][tag.find("label").get_text().lstrip().rstrip()] = tag.find("span", id=tag["id"]).get_text().lstrip().rstrip().replace(u'\xa0', u' ')
+
 	if soup.find(id="u172") == None and courseData["info"] == {}:
 		return None
 
