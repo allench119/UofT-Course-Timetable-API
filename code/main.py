@@ -1,6 +1,5 @@
 from flask import Flask,render_template,redirect,url_for,Response
 import parsers
-import database
 import json
 import re
 import urllib2
