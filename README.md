@@ -28,9 +28,9 @@ for example:
 
 use csc for computer science
 
-	mus for music
+mus for music
 	
-	eco for economics
+eco for economics
 
 *you can find the abbreviations at http://www.artsandscience.utoronto.ca/ofr/timetable/winter/
 
