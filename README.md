@@ -15,7 +15,8 @@ CSC108H1S ECO100Y1Y
 case doesn't matter but you need to add section code("F" or "S") 
 and length ("H" or "Y", and if it's a full year course, the last "Y" is required)
 
-so the query would be
+so the query would be like
+
 http://sneaky-main.appspot.com/Csc108H1S
 or 
 http://sneaky-main.appspot.com/eco100Y1y
@@ -31,7 +32,7 @@ use csc for computer science
 
 *you can find the abbreviations at http://www.artsandscience.utoronto.ca/ofr/timetable/winter/
 
-so the query would be
+so the query would be like
 http://sneaky-main.appspot.com/Csc
 or 
 http://sneaky-main.appspot.com/MUS
