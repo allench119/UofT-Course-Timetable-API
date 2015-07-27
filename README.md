@@ -81,11 +81,17 @@ The format is as the following
 + The dict of meetings has seven, and only seven keys:
 
 	"activity" name of the meeting, string, start with "Lec"(lectures) or "Tut"(tutorials)
+	
 	"courseEnrolment" the current number of students who have already enrolled in this course, string
+	
 	"waitlist" whether or not the meeting has a waitlist, boolean
+	
 	"time" the time of the meeting, list of strings
+	
 	"classSize" the maximum number of students in this meeting, string
+	
 	"location" the location(s) of this meeting, list of strings
+	
 	"instructor" the instructor of this meeting, string
 
 + The dict of info could have any number of keys, it depends on how much info is provided by the courseFinder. However, all the values in "info" are strings.
