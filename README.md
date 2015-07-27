@@ -23,14 +23,7 @@ http://sneaky-main.appspot.com/eco100Y1y
 
 ##Query all the courses a department provides (/departmentCode)
 if you want to query all the course data from a specific department, please use the standard 
-abbreviation.
-for example:
-
-use csc for computer science
-
-mus for music
-	
-eco for economics
+abbreviation. (csc for computer science, mus for music, eco for economics ...)
 
 *you can find the abbreviations at http://www.artsandscience.utoronto.ca/ofr/timetable/winter/
 
