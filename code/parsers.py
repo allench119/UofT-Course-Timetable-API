@@ -104,9 +104,12 @@ def coursefinderParser(courseCode):
 
 		for tag in infoList:
 			logging.error("examing tag" + " " + tag["id"])
-			courseData["info"][tag.find("label").get_text().lstrip().rstrip()] = tag.find("span", id=tag["id"]).get_text().lstrip().rstrip().replace(u'\xa0', u' ')
+			label = tag.find("label")
+			content = tag.find("span", id=tag["id"])
+			if label and content:
+				courseData["info"][label.get_text().lstrip().rstrip()] = content.get_text().lstrip().rstrip().replace(u'\xa0', u' ')
 
-	if soup.find(id="u172") == None and courseData["info"] == {}:
+	if soup.find(id="u172") is None and courseData["info"] == {}:
 		return None
 
 	table = soup.find(id="u172").tbody.find_all('tr')
