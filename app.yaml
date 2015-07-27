@@ -9,7 +9,8 @@ handlers:
   script: main.app
 
 libraries:
-- name: jinja2
-  version: latest
 - name: markupsafe
   version: "0.15"
+- name: jinja2
+  version: latest
+
