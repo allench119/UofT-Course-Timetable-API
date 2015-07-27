@@ -96,7 +96,7 @@ The format is as the following
 
 + The dict of info could have any number of keys, it depends on how much info is provided by the courseFinder. However, all the values in "info" are strings.
 
-+ notice that all the values could be None if no information is provided by the courseFinder
++ notice that all the values could be None if that specific info is provided by the courseFinder
 
 
 
