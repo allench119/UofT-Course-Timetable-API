@@ -12,10 +12,10 @@ for example
 
 CSC108H1S ECO100Y1Y
 
-case doesn't matter but you need to add section code("F" or "S") 
-and length ("H" or "Y", and if it's a full year course, the last "Y" is required)
+cAsE doEsn'T maTtEr bUt YoU nEEd To aDd seCtIon cODe("F" or "S") 
+and lENGth ("H" or "Y", and if it's a full year course, the last "Y" is required)
 
-so the query would be like
+So the query would be like
 
 http://sneaky-main.appspot.com/Csc108H1S
 or 
@@ -25,9 +25,9 @@ http://sneaky-main.appspot.com/eco100Y1y
 if you want to query all the course data from a specific department, please use the standard 
 abbreviation. (csc for computer science, mus for music, eco for economics ...)
 
-*you can find the abbreviations at http://www.artsandscience.utoronto.ca/ofr/timetable/winter/
+*You can find the abbreviations at http://www.artsandscience.utoronto.ca/ofr/timetable/winter/
 
-so the query would be like
+So the query would be like
 http://sneaky-main.appspot.com/Csc
 or 
 http://sneaky-main.appspot.com/MUS
@@ -96,7 +96,7 @@ The format is as the following
 
 + The dict of info could have any number of keys, it depends on how much info is provided by the courseFinder. However, all the values in "info" are strings.
 
-+ notice that all the values could be None if that specific info is provided by the courseFinder
++ Notice that all the values could be None if that specific info is provided by the courseFinder
 
 
 
