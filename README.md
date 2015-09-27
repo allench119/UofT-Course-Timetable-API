@@ -1,5 +1,5 @@
 # UofT-Course-Timetable-API
-
+http://sneaky-main.appspot.com/parsley/
 An API devoted to providing a perfect solution to developers who want to work with the Uoft timetable but hate to parse their ugly pages. 
 It's built on Google App Engine and a part of my course scheduling app. Everyone is welcome to use the parsers.
 
@@ -17,9 +17,9 @@ and lENGth ("H" or "Y", and if it's a full year course, the last "Y" is required
 
 So the query would be like
 
-http://sneaky-main.appspot.com/Csc108H1S
+http://sneaky-main.appspot.com/parsley/Csc108H1S
 or 
-http://sneaky-main.appspot.com/eco100Y1y
+http://sneaky-main.appspot.com/parsley/eco100Y1y
 
 ##Query all the courses a department provides (/departmentCode)
 if you want to query all the course data from a specific department, please use the standard 
@@ -28,9 +28,9 @@ abbreviation. (csc for computer science, mus for music, eco for economics ...)
 *You can find the abbreviations at http://www.artsandscience.utoronto.ca/ofr/timetable/winter/
 
 So the query would be like
-http://sneaky-main.appspot.com/Csc
+http://sneaky-main.appspot.com/parsley/Csc
 or 
-http://sneaky-main.appspot.com/MUS
+http://sneaky-main.appspot.com/parsley/MUS
 
 #Response
 The response is in JSON format. On error, an error message will be returned with the HTTP error code 404.
